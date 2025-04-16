@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\DiamondMaster\DiamondShadeController;
+use App\Http\Controllers\DiamondMaster\DiamondClarityMasterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +21,24 @@ Route::get('/', function () {
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', function () {
         return view('admin.dashboard'); // welcome page
     })->name('admin.dashboard');
+
+    Route::controller(DiamondClarityMasterController::class)->group(function () {
+        Route::get('/clarity', 'index')->name('clarity.index');
+        Route::post('/clarity', 'store')->name('clarity.store');
+        Route::get('/clarity/{id}', 'show')->name('clarity.show'); 
+        Route::put('/clarity/{id}', 'update')->name('clarity.update');
+        Route::delete('/clarity/{id}', 'destroy')->name('clarity.destroy');
+    });
+
+    Route::controller(DiamondShadeController::class)->group(function () {
+        Route::get('/shades', 'index')->name('shades.index');
+        Route::post('/shades', 'store')->name('shades.store');
+        Route::get('/shades/{id}', 'show')->name('shades.show'); 
+        Route::put('/shades/{id}', 'update')->name('shades.update');
+        Route::delete('/shades/{id}', 'destroy')->name('shades.destroy');
+    });
 });

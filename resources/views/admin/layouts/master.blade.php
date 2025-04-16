@@ -112,7 +112,12 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-      <!-- JS सेक्शन में यह कोड जोड़ें -->
+    <script>$.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
