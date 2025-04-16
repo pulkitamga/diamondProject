@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\DiamondMaster\DiamondShadeController;
 use App\Http\Controllers\DiamondMaster\DiamondClarityMasterController;
+use App\Http\Controllers\DiamondMaster\DiamondKeyToSymbolsMasterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,5 +41,15 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/shades/{id}', 'show')->name('shades.show'); 
         Route::put('/shades/{id}', 'update')->name('shades.update');
         Route::delete('/shades/{id}', 'destroy')->name('shades.destroy');
+    });
+
+    Route::controller(DiamondKeyToSymbolsMasterController::class)->group(function () {
+        Route::get('/keyToSymbols', 'index')->name('keytosymbols.index');
+        Route::get('/keyToSymbols/create', 'create')->name('keytosymbols.create');
+        Route::get('/keyToSymbols/{id}/edit', 'edit')->name('keytosymbols.edit');
+        Route::get('/keyToSymbols/{id}', 'show')->name('keytosymbols.show');
+        Route::post('/keyToSymbols', 'store')->name('keytosymbols.store');
+        Route::put('/keyToSymbols/{id}', 'update')->name('keytosymbols.update');
+        Route::delete('/keyToSymbols/{id}', 'destroy')->name('keytosymbols.destroy');
     });
 });
